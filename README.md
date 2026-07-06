@@ -1,4 +1,6 @@
 # MJSXJ05CM Hacks v1.2.2 Stable
+<img width="819" height="509" alt="Screenshot_1" src="https://github.com/user-attachments/assets/a7638a4f-c74a-45b4-9884-686011e9e9ea" />
+<img width="849" height="531" alt="Screenshot_2" src="https://github.com/user-attachments/assets/99f46682-26d7-4a07-9af3-ffc73ed81bb6" />
 
 Стабильная сборка для камеры Xiaomi Mijia MJSXJ05CM / IPC019 на базе прошивки `3.5.1_0052`.
 
