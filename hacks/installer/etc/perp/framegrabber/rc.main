@@ -1,0 +1,10 @@
+#!/bin/sh
+MAINSTREAM_PIPE="/var/run/rtsp_mainstream"
+exec 2>&1
+. ../.common/rc.main
+start() {
+  rm -f ${MAINSTREAM_PIPE}
+  mkfifo ${MAINSTREAM_PIPE}
+  exec framegrabber -f ${MAINSTREAM_PIPE} -c 0
+}
+eval ${TARGET} "$@"

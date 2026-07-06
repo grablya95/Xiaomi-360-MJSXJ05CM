@@ -1,0 +1,14 @@
+#!/bin/sh
+
+AUDIO_PIPE="/var/run/rtsp_audio"
+
+exec 2>&1
+. ../.common/rc.main
+
+start() {
+  echo "start audio capture"
+  [ -p "${AUDIO_PIPE}" ] || { rm -f "${AUDIO_PIPE}"; mkfifo "${AUDIO_PIPE}"; chmod 666 "${AUDIO_PIPE}"; }
+  exec /mnt/sdcard/hacks/framegrabber/bin/framegrabber-audio -a "${AUDIO_PIPE}"
+}
+
+eval ${TARGET} "$@"

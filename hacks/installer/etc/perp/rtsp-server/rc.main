@@ -1,0 +1,26 @@
+#!/bin/sh
+
+CONFIG_FILE="/mnt/data/config/rtsp.json"
+MAINSTREAM_PIPE="/var/run/rtsp_mainstream"
+AUDIO_PIPE="/var/run/rtsp_audio8"
+NATIVE_AUDIO_PIPE="/var/run/rtsp_audio"
+BACKCHANNEL_PIPE="/var/run/audio_backchannel_v023"
+RTSP_SERVER="/mnt/sdcard/hacks/rtsp-server/bin/rtspserver-v041-uclibc"
+DOWNSAMPLER="/mnt/sdcard/hacks/bin/g711-downsample-v002"
+
+exec 2>&1
+. ../.common/rc.main
+
+start() {
+  echo "start RTSP server"
+  [ -p "${BACKCHANNEL_PIPE}" ] || { rm -f "${BACKCHANNEL_PIPE}"; mkfifo "${BACKCHANNEL_PIPE}"; chmod 666 "${BACKCHANNEL_PIPE}"; }
+  [ -p "${AUDIO_PIPE}" ] || { rm -f "${AUDIO_PIPE}"; mkfifo "${AUDIO_PIPE}"; chmod 666 "${AUDIO_PIPE}"; }
+  killall g711-downsample-v001 2>/dev/null || true
+  killall g711-downsample-v002 2>/dev/null || true
+  for PID in $(ps w | grep 'g711-downsample' | grep -v grep | awk '{print $1}'); do kill -9 "$PID" 2>/dev/null || true; done
+  chmod 755 "${RTSP_SERVER}" "${DOWNSAMPLER}"
+  "${DOWNSAMPLER}" "${NATIVE_AUDIO_PIPE}" "${AUDIO_PIPE}" >/tmp/g711-downsample.log 2>&1 &
+  exec "${RTSP_SERVER}" -c ${CONFIG_FILE} -m ${MAINSTREAM_PIPE} -a ${AUDIO_PIPE} -b ${BACKCHANNEL_PIPE}
+}
+
+eval ${TARGET} "$@"

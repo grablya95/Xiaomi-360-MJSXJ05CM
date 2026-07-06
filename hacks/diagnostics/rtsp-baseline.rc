@@ -1,0 +1,9 @@
+#!/bin/sh
+CONFIG_FILE="/mnt/data/config/rtsp.json"
+MAINSTREAM_PIPE="/var/run/rtsp_mainstream"
+exec 2>&1
+. ../.common/rc.main
+start() {
+  exec rtspserver -c ${CONFIG_FILE} -m ${MAINSTREAM_PIPE}
+}
+eval ${TARGET} "$@"

@@ -1,0 +1,16 @@
+#!/bin/sh
+
+BACKCHANNEL_PIPE="/var/run/audio_backchannel_v023"
+BRIDGE="/mnt/sdcard/hacks/audio-bridge/bin/audio-bridge-v028"
+
+exec 2>&1
+. ../.common/rc.main
+
+start() {
+  echo "start audio backchannel bridge"
+  [ -p "${BACKCHANNEL_PIPE}" ] || { rm -f "${BACKCHANNEL_PIPE}"; mkfifo "${BACKCHANNEL_PIPE}"; }
+  chmod 755 "${BRIDGE}"
+  exec "${BRIDGE}" "${BACKCHANNEL_PIPE}"
+}
+
+eval ${TARGET} "$@"

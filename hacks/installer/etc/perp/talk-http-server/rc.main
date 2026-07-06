@@ -1,0 +1,5 @@
+#!/bin/sh
+if test "${1}" = 'start'; then
+  exec /mnt/sdcard/hacks/bin/talk-http-server-v3
+fi
+exit 0

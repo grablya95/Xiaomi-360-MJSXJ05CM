@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>MJSXJ05CM Files</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:12px 0 18px}
+    .toolbar input[type=text]{flex:1 1 280px}
+    input[type=text]{padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:#0d1118;color:var(--text)}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+    th{color:var(--muted);font-weight:650}
+    td.actions-cell{white-space:nowrap;text-align:right}
+    .small{padding:8px 10px;border-radius:10px;margin-left:6px}
+    .danger{background:#ff7c89;color:#21070b}
+    .ghost{background:#293340;color:var(--text)}
+    .crumbs{overflow-wrap:anywhere;color:var(--accent)}
+    .hidden{display:none}
+    @media(max-width:720px){.hide-sm{display:none}td.actions-cell{white-space:normal}.small{margin:4px 2px 0 0}}
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div><span class="dot"></span><strong>MJSXJ05CM Files</strong></div>
+      <a class="primary" href="/">Назад</a>
+    </header>
+
+    <section class="card links">
+      <p class="eyebrow">Файловый менеджер</p>
+      <h1>Файлы камеры</h1>
+      <p class="muted">Разрешены безопасные зоны: <code>/mnt/sdcard</code>, <code>/mnt/data</code>, <code>/tmp</code>, <code>/var/run</code>.</p>
+      <div class="toolbar">
+        <button class="ghost" id="rootSd" type="button">SD</button>
+        <button class="ghost" id="rootData" type="button">Data</button>
+        <button class="ghost" id="rootTmp" type="button">Tmp</button>
+        <input id="pathBox" type="text" spellcheck="false" value="/mnt/sdcard">
+        <button id="goPath" type="button">Открыть</button>
+      </div>
+      <p class="crumbs" id="currentPath">—</p>
+      <p class="muted" id="message">Готово.</p>
+    </section>
+
+    <section class="card links">
+      <h2>Загрузить файл</h2>
+      <input id="uploadFile" type="file">
+      <div class="actions">
+        <button id="uploadButton" type="button">Загрузить в текущую папку</button>
+        <button class="ghost" id="mkdirButton" type="button">Создать папку</button>
+        <button class="ghost" id="refreshButton" type="button">Обновить</button>
+      </div>
+    </section>
+
+    <section class="card links">
+      <h2>Список</h2>
+      <div style="overflow-x:auto">
+        <table>
+          <thead>
+            <tr>
+              <th>Имя</th>
+              <th class="hide-sm">Тип</th>
+              <th class="hide-sm">Размер</th>
+              <th class="hide-sm">Время</th>
+              <th>Действия</th>
+            </tr>
+          </thead>
+          <tbody id="fileRows">
+            <tr><td colspan="5" class="muted">Загрузка…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <script src="files.js?v=002"></script>
+</body>
+</html>

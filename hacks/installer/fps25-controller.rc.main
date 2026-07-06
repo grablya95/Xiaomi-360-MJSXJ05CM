@@ -1,0 +1,10 @@
+#!/bin/sh
+
+exec 2>&1
+. ../.common/rc.main
+
+start() {
+  exec /mnt/sdcard/hacks/bin/fps25-autostart.sh
+}
+
+eval ${TARGET} "$@"

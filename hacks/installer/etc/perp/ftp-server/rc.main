@@ -1,0 +1,15 @@
+#!/bin/sh
+
+exec 2>&1
+. ../.common/rc.main
+
+start() {
+  . /mnt/data/config/config.sh
+  FTP_PORT="${FTP_PORT:-2121}"
+  FTP_ROOT="${FTP_ROOT:-/mnt/sdcard}"
+  echo "start anonymous FTP server on ${FTP_PORT}, root ${FTP_ROOT}"
+  exec /mnt/sdcard/hacks/bin/busybox tcpsvd -vE -c 4 0.0.0.0 "${FTP_PORT}" \
+    /mnt/sdcard/hacks/bin/busybox ftpd -wv "${FTP_ROOT}"
+}
+
+eval ${TARGET} "$@"

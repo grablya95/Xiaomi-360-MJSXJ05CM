@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>MJSXJ05CM Control</title>
+  <link rel="stylesheet" href="style.css?v=2">
+  <link rel="stylesheet" href="settings.css?v=2">
+</head>
+<body>
+  <main>
+    <header>
+      <div><span class="dot"></span><strong>MJSXJ05CM</strong></div>
+      <span id="ip">подключение…</span>
+    </header>
+
+    <section class="hero card">
+      <div>
+        <p class="eyebrow">Xiaomi 360 hack</p>
+        <h1>Видео, звук и настройки камеры</h1>
+        <p class="muted">RTSP с аудио, ONVIF backchannel, FTP-обновления и быстрые настройки без облака.</p>
+      </div>
+      <a class="primary" id="rtsp" href="#">Скопировать RTSP</a>
+    </section>
+
+    <div class="dashboard">
+      <section class="card status">
+        <h2>Состояние</h2>
+        <dl>
+          <div><dt>RTSP</dt><dd id="rtspState">—</dd></div>
+          <div><dt>ONVIF</dt><dd id="onvifState">—</dd></div>
+          <div><dt>Микрофон</dt><dd id="audioState">—</dd></div>
+          <div><dt>Audio RTSP</dt><dd id="audioRtspState">—</dd></div>
+          <div><dt>Запись на SD</dt><dd id="recordState">—</dd></div>
+          <div><dt>FTP</dt><dd id="ftpState">—</dd></div>
+          <div><dt>FPS</dt><dd id="fpsState">—</dd></div>
+          <div><dt>CPU</dt><dd id="cpuState">—</dd></div>
+          <div><dt>ОЗУ</dt><dd id="memState">—</dd></div>
+          <div><dt>Аптайм</dt><dd id="uptime">—</dd></div>
+        </dl>
+      </section>
+
+      <section class="card links">
+        <h2>Подключение</h2>
+        <div class="link-list">
+          <p><b>ONVIF</b><code id="onvifUrl">—</code></p>
+          <p><b>RTSP</b><code id="rtspUrl">—</code></p>
+          <p><b>Audio RTSP</b><code id="audioRtspUrl">—</code></p>
+          <p><b>FTP</b><code id="ftpUrl">—</code></p>
+        </div>
+        <p class="muted small">Для записи звука используйте G.711A/PCMA. Для разговора в Onvifer — ONVIF backchannel PCMU/8000.</p>
+        <div class="actions compact-actions">
+          <a class="primary secondary" href="/cgi-bin/diagnostics.cgi">Диагностика</a>
+          <a class="primary secondary" href="/files.html">Файлы</a>
+        </div>
+      </section>
+    </div>
+
+    <section class="card settings">
+      <div class="section-title">
+        <div>
+          <p class="eyebrow">Control panel</p>
+          <h2>Настройки камеры</h2>
+        </div>
+        <button id="saveSettings" type="button">Сохранить</button>
+      </div>
+
+      <div class="settings-grid">
+        <div class="setting-card">
+          <h3>Сервисы</h3>
+          <div class="setting-row"><div><b>RTSP и ONVIF</b><span>Видео, микрофон и ONVIF</span></div><label class="switch"><input id="mediaEnabled" type="checkbox"><span></span></label></div>
+          <div class="setting-row"><div><b>Двусторонний звук</b><span>ONVIF backchannel</span></div><label class="switch"><input id="backchannelEnabled" type="checkbox"><span></span></label></div>
+          <div class="setting-row"><div><b>FTP</b><span>Порт 2121</span></div><label class="switch"><input id="ftpEnabled" type="checkbox"><span></span></label></div>
+          <div class="setting-row"><div><b>PTZ</b><span>Моторы и стартовая проверка</span></div><label class="switch"><input id="ptzEnabled" type="checkbox"><span></span></label></div>
+        </div>
+
+        <div class="setting-card">
+          <h3>Видео</h3>
+          <div class="setting-row"><div><b>LED</b><span>Индикатор камеры</span></div><label class="switch"><input id="ledIndicator" type="checkbox"><span></span></label></div>
+          <div class="setting-row"><div><b>Full color</b><span>Цветной ночной режим</span></div><label class="switch"><input id="fullColor" type="checkbox"><span></span></label></div>
+          <div class="setting-row"><div><b>WDR</b><span>Расширенный диапазон</span></div><label class="switch"><input id="wdrEnabled" type="checkbox"><span></span></label></div>
+          <div class="setting-row"><div><b>Водяной знак</b><span>Дата и время на картинке</span></div><label class="switch"><input id="watermarkEnabled" type="checkbox"><span></span></label></div>
+          <div class="setting-row"><div><b>Переворот</b><span>Поворот на 180°</span></div><label class="switch"><input id="videoFlip" type="checkbox"><span></span></label></div>
+
+          <div class="field-grid">
+            <label class="field">FPS
+              <select id="videoFps">
+                <option value="20">20 FPS — штатно</option>
+                <option value="25">25 FPS — проверено</option>
+              </select>
+            </label>
+            <label class="field">Ночное видение
+              <select id="nightVision">
+                <option value="auto">Автоматически</option>
+                <option value="on">Включено</option>
+                <option value="off">Выключено</option>
+              </select>
+            </label>
+          </div>
+          <p class="muted small">При смене FPS видео перезапустится на несколько секунд. 25 FPS — стабильный ускоренный режим.</p>
+        </div>
+
+        <div class="setting-card">
+          <h3>Система</h3>
+          <label class="field">Часовой пояс
+            <select id="timezone">
+              <option value="Europe/Kyiv">Europe/Kyiv (Киев)</option>
+              <option value="Europe/Warsaw">Europe/Warsaw</option>
+              <option value="Europe/Berlin">Europe/Berlin</option>
+              <option value="Europe/London">Europe/London</option>
+              <option value="Europe/Madrid">Europe/Madrid</option>
+              <option value="Asia/Jerusalem">Asia/Jerusalem</option>
+              <option value="America/New_York">America/New_York</option>
+              <option value="UTC">UTC</option>
+            </select>
+          </label>
+
+          <details>
+            <summary>Задержки аудио</summary>
+            <div class="timing-grid">
+              <label class="field">Старт аудио, сек.<input id="audioStartDelay" type="number" min="30" max="300"></label>
+              <label class="field">Старт backchannel, сек.<input id="backchannelStartDelay" type="number" min="0" max="120"></label>
+              <label class="field">Повтор, сек.<input id="backchannelRestartDelay" type="number" min="1" max="60"></label>
+            </div>
+            <p class="muted small">Рабочие значения: 120 / 20 / 10. Обычно лучше не трогать.</p>
+          </details>
+        </div>
+      </div>
+      <p id="settingsMessage" class="muted">Загрузка настроек…</p>
+    </section>
+
+    <section class="tool-grid">
+      <div class="card links">
+        <h2>Файловый менеджер</h2>
+        <p class="muted">Файлы на флешке и в рабочей папке камеры.</p>
+        <p><a class="primary secondary" href="/files.html">Открыть файлы</a></p>
+      </div>
+
+      <div class="card links">
+        <h2>Обновление</h2>
+        <p class="muted">Загрузить <code>update.zip</code> прямо через браузер.</p>
+        <input id="updateFile" type="file" accept=".zip,application/zip">
+        <div class="actions">
+          <button id="uploadUpdate" type="button">Загрузить</button>
+          <button id="installUpdate" type="button">Установить</button>
+          <button id="rebootCamera" type="button">Ребут</button>
+        </div>
+        <p id="updateMessage" class="muted">Файл пока не выбран.</p>
+      </div>
+    </section>
+  </main>
+  <script src="app.js?v=045"></script>
+</body>
+</html>

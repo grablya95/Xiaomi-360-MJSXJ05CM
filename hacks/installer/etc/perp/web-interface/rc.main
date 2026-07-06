@@ -1,0 +1,19 @@
+#!/bin/sh
+
+exec 2>&1
+. ../.common/rc.main
+
+start() {
+  . /mnt/data/config/config.sh
+  WEB_PORT="${WEB_PORT:-80}"
+  WEB_AUTH="${WEB_AUTH:-off}"
+  WEB_USERNAME="${WEB_USERNAME:-${ONVIF_USERNAME:-admin}}"
+  WEB_PASSWORD="${WEB_PASSWORD:-${ONVIF_PASSWORD:-admin}}"
+  if [ "${WEB_AUTH}" = "on" ]; then
+    printf '/:%s:%s\n' "${WEB_USERNAME}" "${WEB_PASSWORD}" >/var/run/httpd.conf
+    exec busybox httpd -f -p "${WEB_PORT}" -h /mnt/sdcard/hacks/web -c /var/run/httpd.conf
+  fi
+  exec busybox httpd -f -p "${WEB_PORT}" -h /mnt/sdcard/hacks/web
+}
+
+eval ${TARGET} "$@"
